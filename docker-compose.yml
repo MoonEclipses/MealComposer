@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mealcomposerapp:
+    build: ./mealcomposerapp
+    container_name: mealcomposerapp
+    working_dir: /usr/app/front
+    volumes:
+      - ./mealcomposerapp:/usr/app/front
+      - /mealcomposerapp/node_modules
+    env_file:
+      - .env
+    ports:
+      - "4200:3000"
+    links:
+      - server
+
+  server:
+    build: ./server
+    container_name: server
+    working_dir: /usr/app/back
+    volumes:
+      - ./server:/usr/app/back
+      - /server/node_modules
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
